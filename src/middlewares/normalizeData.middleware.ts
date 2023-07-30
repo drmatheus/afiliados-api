@@ -34,7 +34,6 @@ export const normalizeDataMiddleware = (
       }
     });
 
-    res.locals.normalizedData = dataArrayObject;
     req.body = dataArrayObject;
 
     fs.unlink(req.file!.path, (err) => {

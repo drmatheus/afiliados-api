@@ -1,27 +1,3 @@
-// import { z } from "zod";
-
-// const affiliatedOperationSchema = z.object({
-//   type: z.string(),
-//   date: z
-//     .string()
-//     .regex(
-//       /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}-\d{2}:\d{2}$/,
-//       "Invalid format to date"
-//     ),
-//   product: z.string().max(30).nonempty("Product must be informed"),
-//   value: z
-//     .string()
-//     .length(10, "Value must contain exactly 12 character(s)")
-//     .refine((value) => !isNaN(Number(value)), {
-//       message: "Value content is not a number",
-//     }),
-//   seller: z.string().nonempty("Seller must be informed"),
-// });
-
-// export const affiliatedOperationArraySchema = z.array(
-//   affiliatedOperationSchema
-// );
-
 import { z } from "zod";
 
 const affiliatedOperationSchema = z.object({
@@ -57,4 +33,8 @@ const affiliatedOperationSchema = z.object({
 
 export const affiliatedOperationArraySchema = z.array(
   affiliatedOperationSchema
+);
+
+export const affiliatedOperationSchemaWithId = affiliatedOperationSchema.extend(
+  { id: z.string() }
 );

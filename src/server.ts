@@ -9,6 +9,6 @@ AppDataSource.initialize()
       console.log("Server is running!");
     });
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((error) => {
+    console.log(error);
   });
