@@ -126,7 +126,7 @@ O objeto users é definido como:
 | -------- | ------ | --------------------- |
 | name     | string | O nome do usuario.    |
 | email    | string | Email do usuario .    |
-| password | string | O contato do usuario. |
+| password | string | A senha do usuario.   |
 
 ### Endpoints de usuarios
 
@@ -152,7 +152,7 @@ Content-type: application/json
 
 ```json
 {
-  "email": "johnmail22@gmail.com",
+  "email": "johnmail@mail.com",
   "name": "john dummy",
   "password": "123456789"
 }
@@ -167,7 +167,7 @@ Content-type: application/json
 ```json
 {
   "name": "john dummy",
-  "email": "jvmeira98@gmail.com",
+  "email": "johnmail@mail.com",
   "id": "uuid"
 }
 ```
