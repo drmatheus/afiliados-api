@@ -6,8 +6,7 @@
   "author": "drmatheus <davilamatheus@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "dev": "ts-node-dev --ignore-watch node_modules --cls --rs src/server.ts"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

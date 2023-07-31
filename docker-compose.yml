@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  node_app:
+    container_name: affiliated_api
+    build: .
+    image: affiliated_api
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://Dev:123@affiliated_db:5432/affiliated_db
+      - SECRET_KEY=ABCD5678
+    depends_on:
+      - affiliated_db
+    command: bash -c "npm run dev"
+    restart: always
+
+  affiliated_db:
+    container_name: affiliated_db
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=affiliated_db
+      - POSTGRES_USER=Dev
+      - POSTGRES_PASSWORD=123
+    volumes:
+      - node_db_data:/var/lib/postgresql/data
+
+volumes:
+  node_db_data:

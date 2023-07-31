@@ -1,92 +1,375 @@
-# Node.js Starter with Express and TypeORM
+# Bem-Vindo ao Afiliados API!
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+API do Afiliados é responsavel por normalizar arquivos txt e salvar no banco de dados.
 
-This repository provides a starting point for Node.js projects using Express and TypeORM. It allows you to quickly kickstart a project by providing a basic structure with the necessary dependencies.
+[Github do Front-end do Afiliados](https://github.com/drmatheus/afiliados-app)
 
-## Table of Contents
+## Tecnologias Utilizadas 👨‍💻👨‍💻
 
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+Nesse projeto foi utilizado:
 
-## Getting Started
+- [NodeJS](https://nodejs.org/en/)
 
-1. Fork this repository by clicking the "Fork" button on the top right corner of this page.
-2. Clone your forked repository to your local machine:
+- [TypeScript](https://www.typescriptlang.org/)
 
-```
-git clone https://github.com/YOUR_USERNAME/repository-name.git
-```
+- [Express](https://expressjs.com/)
 
-Navigate to the cloned directory:
+- [TypeORM](https://typeorm.io/)
 
-```
-cd repository-name
-```
+- [Postgres](https://www.postgresql.org/)
 
-Install the project dependencies:
+## Arquitetura do Projeto
 
-```
-npm install
-```
+- config: Contém configurações extras, como a configuração do Multer, que é usado para lidar com o upload de arquivos.
 
-Rename the .env.example file to .env and update the environment variables as needed.
+- controllers: Responsável por conter os controladores que lidam com as requisições da API. Cada controlador é responsável por tratar uma rota específica.
 
-Start the development server:
+- entities (do TypeORM): Contém as entidades do TypeORM, que representam os modelos de dados da aplicação e estão diretamente relacionadas às tabelas do banco de dados.
 
-```
-npm run dev
-```
+- interfaces: Contém as interfaces TypeScript que definem os tipos personalizados usados na aplicação para garantir tipagem estática e melhorar a legibilidade do código.
 
-This will start the development server using nodemon, allowing you to make changes to the source code and see the updates automatically.
+- middlewares: Armazena os middlewares personalizados, como autenticação e validação de dados, que são executados antes de chegar aos controladores.
 
-## Project Structure
+- migrations (do TypeORM): Contém as migrações do TypeORM, que são responsáveis por criar e modificar as tabelas no banco de dados de acordo com as mudanças nos modelos de dados.
 
-The basic structure of this project follows this pattern:
+- routes: Contém as rotas da API definidas usando o Express, que direcionam as requisições HTTP aos controladores corretos.
 
-```
-.
-├── src/
-│ ├── controllers/
-│ ├── entities/
-│ ├── interfaces/
-│ ├── middlewares/
-│ ├── migrations/
-│ ├── routes/
-│ ├── schemas/
-│ ├── services/
-│ ├── app.ts
-│ ├── data-source.ts
-│ ├── error.ts
-│ └── server.ts
-├── .env.example
-├── .gitignore
-├── package.json
-├── tsconfig.json
-└── README.md
+- schemas (do Zod): Armazena os esquemas do Zod, que são usados para validar os dados de entrada das requisições antes de serem processados pelos controladores.
+
+- services: Contém a lógica de negócios da aplicação, como operações de banco de dados e outras operações complexas, que não são diretamente relacionadas à camada de controle.
+
+- upload: Diretório temporário para armazenar os arquivos enviados durante o upload antes de serem processados.
+
+- app.ts: O ponto de entrada da aplicação, onde a instância do Express é criada e configurada, incluindo middlewares globais.
+
+- data-source.ts: Responsável por inicializar a conexão com o banco de dados (TypeORM) e disponibilizar o DataSource para o resto da aplicação.
+
+- error.ts: Gerencia o tratamento de erros da aplicação, como erros de validação e erros internos do servidor, garantindo respostas adequadas para os clientes.
+
+- Server.ts: Responsável por inicializar o servidor Express e ouvir as requisições na porta definida.
+
+- .env.example: Um arquivo modelo que contém variáveis de ambiente necessárias para a aplicação
+
+## Rodando o Projeto
+
+- Certifique-se de ter o Node.js e o PostgreSQL instalados.
+
+- Inicie seu terminal (git bash ou powershell)
+
+- Preencha as variaveis de ambiente:
+
+```bash
+ DATABASE_URL=postgres://<username>:<password>@<host>:<port>/<database>
+ SECRET_KEY=<secret_key>
 ```
 
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/controllers**</span> directory contains the application controllers.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/entities**</span> directory contains the TypeORM entities.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/interfaces**</span> directory contains the interfaces used in the project.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/middlewares**</span> directory contains the Express middlewares.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/migrations**</span> directory contains the TypeORM migrations.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/routes**</span> directory contains the API route definitions.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/schemas**</span> directory contains the Zod schemas (if applicable).<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/services**</span> directory contains the business logic services.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/app.ts**</span> file is responsible for configuring the Express application.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/data-source.ts**</span> file contains the database connection setup.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/error.ts**</span> file defines custom error classes.<br>
-<span style="background-color: #1082C2; color: white; padding: 1px 5px; border-radius: 5px;">**src/server.ts**</span> file starts the Express server.<br>
+```bash
+    npm install
+```
 
-Feel free to modify the structure or add additional directories as per your project's requirements.<br>
+- Para gerar as migrations necessarias:
 
-## Contributing
+  (ATENÇÃO: para evitar problemas no funcionamento do projeto garanta que a pasta migrations esteja vazia)
 
-If you want to contribute to this project, feel free to fork this repository and submit your changes via pull requests. I'll be glad to review and merge your contributions.
+```bash
+   npm run typeorm migration:generate ./src/migrations/InitialMigration -d ./src/data-source.ts
+```
 
-## License
+- Após gerar a migration, execute a migration com o seguinte comando:
 
-This project is licensed under the MIT License.
+```bash
+   npm run typeorm migration:run -d ./src/data-source
+```
+
+- Para iniciar o projeto:
+
+```bash
+    npm run dev
+```
+
+- A api estará disponivel no endereço: [localhost:3000](https://localhost:3000) !
+
+## Rodando o Projeto em Docker
+
+- Certifique-se de ter o Docker instalado em seu sistema.
+
+- No diretorio do projeto no terminal digite o comando:
+
+```bash
+    docker-compose up
+```
+
+(Substitua [nome_do_container] pelo nome ou ID do container onde o projeto está em execução.)
+
+- Abra um novo terminal e execute o seguinte comando:
+
+```bash
+    docker exec -it [nome_do_container] bash
+```
+
+- Agora no terminal do container (no mesmo terminal):
+
+```bash
+npx typeorm-ts-node-commonjs "migration:run" -d "./src/data-source.ts"
+
+```
+
+- A api estará disponivel no endereço: [localhost:3000](https://localhost:3000)!
+
+## ROTAS DA API
+
+## ROTAS /user
+
+O objeto users é definido como:
+
+| Campo    | Tipo   | Descrição             |
+| -------- | ------ | --------------------- |
+| name     | string | O nome do usuario.    |
+| email    | string | Email do usuario .    |
+| password | string | O contato do usuario. |
+
+### Endpoints de usuarios
+
+| Método | Rota  | Descrição                 |
+| ------ | ----- | ------------------------- |
+| POST   | users | Criação de um usuário.    |
+| GET    | users | Retorna o usuario logado. |
+
+### Criação de usuário
+
+### CRIAR USUARIO
+
+### Exemplo de Request:
+
+```
+POST /users
+Host: http://localhost:3000
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "email": "johnmail22@gmail.com",
+  "name": "john dummy",
+  "password": "123456789"
+}
+```
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "name": "john dummy",
+  "email": "jvmeira98@gmail.com",
+  "id": "uuid"
+}
+```
+
+### RETORNAR DADOS DO USUARIO LOGADO
+
+### Exemplo de Request:
+
+```
+GET /users
+Host: http://localhost:3000
+Authorization: Bearer token (token de login)
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+	"name": "Matheus Davila",
+	"email": "davilanew@mail.com",
+	"id": "0fd0dfc3-8d07-47c0-8401-38fde077036e",
+	"affiliatedOperations": [
+		{
+			"type": "1",
+			"date": "2022-01-15T19:20:30-03:00",
+			"product": "CURSO DE BEM-ESTAR",
+			"value": "0000012750",
+			"seller": "JOSE CARLOS",
+			"id": "b1427733-67bf-4d9c-8f7a-d973d0f5ba7b"
+		}...]}
+```
+
+## ROTAS DE LOGIN
+
+O objeto login é definido como:
+
+| Campo    | Tipo   | Descrição            |
+| -------- | ------ | -------------------- |
+| email    | string | O email do usuário.  |
+| password | string | password do usuario. |
+
+### Endpoints de login
+
+| Método | Rota  | Descrição            |
+| ------ | ----- | -------------------- |
+| POST   | login | login de um usuário. |
+
+### REALIZAR LOGIN
+
+### Exemplo de Request:
+
+```
+POST /login
+Host: http://localhost:3000
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "email": "johndoe@mail.com",
+  "password": "123456789"
+}
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTA3NzUxMDksImV4cCI6MTY5MDg2MTUwOSwic3ViIjoiMGZkMGRmYzMtOGQwNy00N2MwLTg0MDEtMzhmZGUwNzcwMzZlIn0.nO06vZBlShzyBmYWYBJDWosN26MH0yUme82hLjf9Hbs"
+}
+```
+
+## ROTAS DE OPERAÇÕES DOS AFILIADOS
+
+O objeto de operação é definido como:
+
+- Num arquivo .txt cada linha deve ser composta da seguinte forma:
+
+12022-01-15T19:20:30-03:00CURSO DE BEM-ESTAR 0000012750JOSE CARLOS
+
+Os dados estão organizados da seguinte forma:
+|Campo | Inicio | Fim | Descrição |
+|-----------------|----------|-------|-----------------------|
+|Tipo de operação |1 |1 | Entrada/Saida |
+|Data |2 |26 | Data - ISO Date + GMT |
+|Produto |27 |56 | Nome do produto |
+|Valor |57 |66 | Valor em centavos |
+|Vendedor |67 |86 | Nome do vendedor |
+
+### Endpoint para postar as operações dos afiliados
+
+| Método | Rota        | Descrição           |
+| ------ | ----------- | ------------------- |
+| POST   | /affiliated | Postar as operações |
+| GET    | /affiliated | Listar as operações |
+
+### POST DAS OPERAÇÕES DOS AFILIADOS
+
+### Exemplo de Request:
+
+```
+POST /affiliated
+Host: http://localhost:3000
+Authorization: Bearer <seu-token-de-autenticação>
+Content-type: multipart/form-data
+```
+
+### Corpo da Requisição:
+
+```json
+Para enviar o arquivo .txt contendo as operações, você deve usar o campo "file" no corpo da requisição. Certifique-se de utilizar o formato adequado para o envio do arquivo.
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "type": "1",
+    "date": "2022-01-15T19:20:30-03:00",
+    "product": "CURSO DE BEM-ESTAR",
+    "value": "0000012750",
+    "seller": "JOSE CARLOS",
+    "id": "b1427733-67bf-4d9c-8f7a-d973d0f5ba7b"
+  },
+  {
+    "type": "1",
+    "date": "2021-12-03T11:46:02-03:00",
+    "product": "DOMINANDO INVESTIMENTOS",
+    "value": "0000050000",
+    "seller": "MARIA CANDIDA",
+    "id": "6b740f0b-8da7-4923-8de7-b69464acac21"
+  }
+]
+```
+
+### GET DAS OPERAÇÕES DOS AFILIADOS
+
+### Exemplo de Request:
+
+```
+POST /affiliated
+Host: http://localhost:3000
+Authorization: Bearer <seu-token-de-autenticação>
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "type": "1",
+    "date": "2022-01-15T19:20:30-03:00",
+    "product": "CURSO DE BEM-ESTAR",
+    "value": "0000012750",
+    "seller": "JOSE CARLOS",
+    "id": "b1427733-67bf-4d9c-8f7a-d973d0f5ba7b"
+  },
+  {
+    "type": "1",
+    "date": "2021-12-03T11:46:02-03:00",
+    "product": "DOMINANDO INVESTIMENTOS",
+    "value": "0000050000",
+    "seller": "MARIA CANDIDA",
+    "id": "6b740f0b-8da7-4923-8de7-b69464acac21"
+  }
+]
+```
+
+## MADE WITH ❤️ BY:
+
+- [Matheus Dávila](https://github.com/drmatheus)
