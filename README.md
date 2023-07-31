@@ -331,7 +331,7 @@ Para enviar o arquivo .txt contendo as operações, você deve usar o campo "fil
 ### Exemplo de Request:
 
 ```
-POST /affiliated
+GET /affiliated
 Host: http://localhost:3000
 Authorization: Bearer <seu-token-de-autenticação>
 Content-type: application/json
@@ -370,6 +370,6 @@ Vazio
 ]
 ```
 
-## MADE WITH ❤️ BY:
+## MADE WITH:
 
 - [Matheus Dávila](https://github.com/drmatheus)
