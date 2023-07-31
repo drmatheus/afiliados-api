@@ -99,12 +99,12 @@ Nesse projeto foi utilizado:
     docker-compose up
 ```
 
-(Substitua [nome_do_container] pelo nome ou ID do container onde o projeto está em execução.)
+(Substitua [nome_do_container_da_api] pelo nome ou ID do container onde o projeto está em execução.)
 
 - Abra um novo terminal e execute o seguinte comando:
 
 ```bash
-    docker exec -it [nome_do_container] bash
+    docker exec -it [nome_do_container_da_api] bash
 ```
 
 - Agora no terminal do container (no mesmo terminal):
